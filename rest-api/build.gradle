@@ -80,8 +80,9 @@ task deployEC2 << {
 
 			println("Initiating Remote Build")
 			execute "/home/ec2-user/CognitiveGuru/rest-api/gradlew build"
-			execute(["nohup", "java", "-Djava.security.egd=file:/dev/./urandom", "-jar",
-					 "/home/ec2-user/CognitiveGuru/rest-api/build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar", "&"])
+//			execute(["nohup", "java", "-Djava.security.egd=file:/dev/./urandom", "-jar",
+//					 "/home/ec2-user/CognitiveGuru/rest-api/build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar", "&"])
+			execute "sh /home/ec2-user/CognitiveGuru/rest-api/run.sh"
 		}
 	}
 }
