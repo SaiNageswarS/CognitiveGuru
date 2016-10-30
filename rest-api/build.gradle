@@ -62,14 +62,14 @@ remotes {
 	}
 }
 
-//task deployEC2(dependsOn: build, type:Exec) {
-//	ssh.run {
-//		session(remotes.web01) {
-//			execute "rm /home/ec2-user/*.jar"
-//			put from: "build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar", into: "/home/ec2-user/app.jar"
-//			execute(["killall", "java"])
-//			execute(["nohup", "java","-Djava.security.egd=file:/dev/./urandom", "-jar",
-//					 "/home/ec2-user/app.jar", "&"])
-//		}
-//	}
-//}
+task deployEC2(dependsOn: build, type:Exec) {
+	ssh.run {
+		session(remotes.web01) {
+			execute "rm /home/ec2-user/*.jar"
+			put from: "build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar", into: "/home/ec2-user/app.jar"
+			execute(["killall", "java"])
+			execute(["nohup", "java","-Djava.security.egd=file:/dev/./urandom", "-jar",
+					 "/home/ec2-user/app.jar", "&"])
+		}
+	}
+}
