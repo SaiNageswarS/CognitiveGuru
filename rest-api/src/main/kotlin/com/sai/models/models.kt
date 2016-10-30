@@ -14,7 +14,7 @@ import javax.persistence.*
  */
 
 @Entity
-class User(
+class CgUser(
         @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) var id: Long = 0,
         @Column(unique = true) @Email var email: String = "",
         var password: String = "",
@@ -30,7 +30,7 @@ class Task(
         @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) var id: Long = 0,
         var dueDate: Timestamp? = null,
         @ManyToOne var parentTask: Task? = null,
-        @ManyToOne var user: User? = null,
+        @ManyToOne var cgUser: CgUser? = null,
         @CreationTimestamp var created_at: Timestamp? = null,
         @UpdateTimestamp var updated_at: Timestamp? = null
 )
