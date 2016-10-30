@@ -11,14 +11,12 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath('se.transmode.gradle:gradle-docker:1.2')
 	}
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'docker'
 
 jar {
 	baseName = 'CognitiveGuru'
@@ -45,14 +43,20 @@ dependencies {
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 }
 
-task buildDocker(type: Docker, dependsOn: build) {
-	push = true
-	applicationName = "cognitiveguru"
-	dockerfile = file('src/main/docker/Dockerfile')
+task buildDocker(dependsOn: build, type:Exec) {
 	doFirst {
-		copy {
-			from jar
-			into stageDir
-		}
+		println "Building docker image"
 	}
+	def dockerBuild = ["docker", "build", "-t", "cognitiveguru:latest", "."]
+	commandLine dockerBuild
+}
+
+task deployEC2(dependsOn:build, type:Exec) {
+	doFirst {
+		println "Deploying on ec2"
+	}
+	def copyJar = ["scp", "-i", "~/.ssh/apnastartup.pem", "build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar",
+						"ec2-user@54.147.152.45:/home/ec2-user"]
+	def startServer = ["nohup", "java", "-Djava.security.egd=file:/dev/./urandom","-jar", "/app.jar"]
+	commandLine copyJar
 }
