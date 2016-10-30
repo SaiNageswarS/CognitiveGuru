@@ -62,14 +62,26 @@ remotes {
 	}
 }
 
-task deployEC2(dependsOn: build, type:Exec) {
+task deployEC2 << {
+	println("Deploying to EC2")
 	ssh.run {
 		session(remotes.web01) {
-			execute "rm /home/ec2-user/*.jar"
-			put from: "build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar", into: "/home/ec2-user/app.jar"
-			execute(["killall", "java"])
-			execute(["nohup", "java","-Djava.security.egd=file:/dev/./urandom", "-jar",
-					 "/home/ec2-user/app.jar", "&"])
+			def remoteHome = "/home/ec2-user"
+
+			executeSudo "yum install -y git"
+			executeSudo "yum install -y java-1.8.0"
+			execute(["cd", remoteHome])
+			executeSudo "rm -Rf CognitiveGuru"
+			execute "git clone https://github.com/SaiNageswarS/CognitiveGuru.git"
+
+			execute "cd CognitiveGuru/rest-api"
+			put from: "src/main/resources/application.properties",
+				into: "${remoteHome}/CognitiveGuru/rest-api/src/main/resources/application.properties"
+
+			println("Initiating Remote Build")
+			execute "/home/ec2-user/CognitiveGuru/rest-api/gradlew build"
+			execute(["nohup", "java", "-Djava.security.egd=file:/dev/./urandom", "-jar",
+					 "/home/ec2-user/CognitiveGuru/rest-api/build/libs/CognitiveGuru-0.0.1-SNAPSHOT.jar", "&"])
 		}
 	}
 }
