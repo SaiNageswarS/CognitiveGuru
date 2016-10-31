@@ -74,12 +74,12 @@ task deployEC2 << {
 			executeSudo "rm -Rf CognitiveGuru"
 			execute "git clone https://github.com/SaiNageswarS/CognitiveGuru.git"
 
-			execute "cd CognitiveGuru/rest-api"
+			execute "cd CognitiveGuru"
 			put from: "src/main/resources/application.properties",
-				into: "${remoteHome}/CognitiveGuru/rest-api/src/main/resources/application.properties"
+				into: "${remoteHome}/CognitiveGuru/src/main/resources/application.properties"
 
 			println("Initiating Remote Build")
-			execute "sh /home/ec2-user/CognitiveGuru/rest-api/run.sh"
+			execute "sh /home/ec2-user/CognitiveGuru/run.sh"
 		}
 	}
 }
