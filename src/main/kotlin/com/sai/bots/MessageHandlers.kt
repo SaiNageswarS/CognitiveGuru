@@ -61,7 +61,7 @@ fun handleCommand(message: Message): SendMessage {
 //            val tasksListString = BotDataServices.getTasksList(message.from)
             val userUUID = BotDataServices.getCgUser(message.from)!!.userUUID
 
-            val tasksUrl = webserverUrl + userUUID
+            val tasksUrl = webserverUrl + "/#!/tasks/" + userUUID
             handleSimpleTextMessage(message, tasksUrl)
         }
         else -> handleEchoMessage(message)
