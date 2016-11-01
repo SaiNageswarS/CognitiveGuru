@@ -25,3 +25,4 @@ nbdist/
 
 application.properties
 node_modules
+classes

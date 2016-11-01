@@ -13,9 +13,9 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot
  */
 class UpscTelegramBot: TelegramLongPollingBot() {
     override fun getBotUsername(): String
-            = ApplicationContextProvider.appContext!!.environment.getProperty("telegram.upscBotUsername")
+            = ApplicationContextProvider.getProperty("telegram.upscBotUsername")
     override fun getBotToken(): String
-            = ApplicationContextProvider.appContext!!.environment.getProperty("telegram.upscBotToken")
+            = ApplicationContextProvider.getProperty("telegram.upscBotToken")
 
     override fun onUpdateReceived(update: Update?) {
         if(update != null && update.hasMessage()){

@@ -1,5 +1,8 @@
 package com.sai.bots
 
+import com.sai.ApplicationContextProvider
+import com.sai.CognitiveGuruApplication
+import org.slf4j.LoggerFactory
 import org.telegram.telegrambots.api.methods.send.SendMessage
 import org.telegram.telegrambots.api.objects.Message
 import org.telegram.telegrambots.api.objects.replykeyboard.ForceReplyKeyboard
@@ -8,21 +11,26 @@ import org.telegram.telegrambots.api.objects.replykeyboard.ForceReplyKeyboard
  * Created by sainageswar on 16/10/16.
  */
 
+val log = LoggerFactory.getLogger(CognitiveGuruApplication::class.java)
+val webserverUrl = ApplicationContextProvider.getProperty("server.webUrl")
+
 fun handleSimpleTextMessage(message: Message, text: String?): SendMessage {
-    val sendMessageRequest = SendMessage();
-    sendMessageRequest.chatId = message.getChatId().toString(); //who should get from the message the sender that sent it.
-    sendMessageRequest.text = text;
+    val sendMessageRequest = SendMessage()
+    sendMessageRequest.chatId = message.chatId.toString() //who should get from the message the sender that sent it.
+    sendMessageRequest.text = text
+    log.info(sendMessageRequest.toString())
     return sendMessageRequest
 }
 
 fun handleForceReply(message: Message, text: String?): SendMessage {
-    val sendMessageRequest = SendMessage();
-    sendMessageRequest.enableMarkdown(true);
-    sendMessageRequest.chatId = message.getChatId().toString(); //who should get from the message the sender that sent it.
+    val sendMessageRequest = SendMessage()
+    sendMessageRequest.enableMarkdown(true)
+    sendMessageRequest.chatId = message.chatId.toString() //who should get from the message the sender that sent it.
 
 //    sendMessageRequest.replyToMessageId = message.getMessageId();
     sendMessageRequest.replyMarkup = ForceReplyKeyboard()
     sendMessageRequest.text = text
+    log.info(sendMessageRequest.toString())
     return sendMessageRequest
 }
 
@@ -51,10 +59,9 @@ fun handleCommand(message: Message): SendMessage {
         "/addtask" -> handleForceReply(message, commandReplies[command])
         "/showtasks" -> {
 //            val tasksListString = BotDataServices.getTasksList(message.from)
-//            handleSimpleTextMessage(message, tasksListString)
             val userUUID = BotDataServices.getCgUser(message.from)!!.userUUID
-            //TODO: remove harcoded url
-            val tasksUrl = "http://54.147.152.45:8080/#!/tasks/" + userUUID
+
+            val tasksUrl = webserverUrl + userUUID
             handleSimpleTextMessage(message, tasksUrl)
         }
         else -> handleEchoMessage(message)
