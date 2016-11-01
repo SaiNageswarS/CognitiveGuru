@@ -13,8 +13,8 @@ import com.sai.models.Task
 class TaskController @Autowired constructor(val repository: TaskRepository){
 
 
-    @GetMapping("/")
-    fun findAll() = repository.findAll()
+    @GetMapping("/{userUUID}")
+    fun findByUserUUID(@PathVariable userUUID: String) = repository.findByCgUser_UserUUID(userUUID)
 
     @PostMapping("/")
     fun save(@RequestBody task: Task) = repository.save(task)

@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.hibernate.validator.constraints.Email
 import java.sql.Timestamp
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -19,6 +20,7 @@ class CgUser(
         @Column(unique = true) @Email var email: String = "",
         var password: String = "",
         @Column(unique = true) var telegramUserId: Int? = null,
+        @Column(unique = true) var userUUID: String = UUID.randomUUID().toString(),
         @CreationTimestamp var created_at: Timestamp? = null,
         @UpdateTimestamp var updated_at: Timestamp? = null
 )

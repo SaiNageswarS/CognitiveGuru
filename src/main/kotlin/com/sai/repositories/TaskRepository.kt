@@ -8,4 +8,5 @@ import com.sai.models.Task
  */
 interface TaskRepository: CrudRepository<Task, Long> {
     fun findByCgUser_TelegramUserId(telegramUserId: Int): List<Task>
+    fun findByCgUser_UserUUID(userUUID: String): List<Task>
 }
