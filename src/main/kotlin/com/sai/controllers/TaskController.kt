@@ -14,7 +14,14 @@ class TaskController @Autowired constructor(val repository: TaskRepository){
 
 
     @GetMapping("/{userUUID}")
-    fun findByUserUUID(@PathVariable userUUID: String) = repository.findByCgUser_UserUUID(userUUID)
+    fun findByUserUUID(@PathVariable userUUID: String,
+                       @RequestParam("taskType", required = false) taskType: String?): List<Task> {
+        return when(taskType) {
+            "Incomplete" -> repository.findIncompleteTasksByUserUUID(userUUID)
+            "Complete" -> repository.findCompletedTasksByUserUUID(userUUID)
+            else -> repository.findAllTasksByUserUUID(userUUID)
+        }
+    }
 
     @PostMapping("/")
     fun save(@RequestBody task: Task) = repository.save(task)
