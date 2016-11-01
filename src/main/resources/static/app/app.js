@@ -2,7 +2,8 @@
 
 // Declare app level module which depends on views, and components
 angular.module('bookme', [
-  'ngRoute'
+  'ngRoute',
+  'ngResource'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

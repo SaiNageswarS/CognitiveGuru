@@ -12,9 +12,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot
  * Created by sainageswar on 16/10/16.
  */
 class UpscTelegramBot: TelegramLongPollingBot() {
-    private var cgUserRepository: CgUserRepository =
-            ApplicationContextProvider.appContext!!.getBean("cgUserRepository") as CgUserRepository
-
     override fun getBotUsername(): String
             = ApplicationContextProvider.appContext!!.environment.getProperty("telegram.upscBotUsername")
     override fun getBotToken(): String
@@ -24,7 +21,7 @@ class UpscTelegramBot: TelegramLongPollingBot() {
         if(update != null && update.hasMessage()){
             val message: Message = update.getMessage();
 
-            val cgUser: CgUser? = cgUserRepository.findOneByTelegramUserId(message.from.id)
+            val cgUser: CgUser? = BotDataServices.getCgUser(message.from)
 
             val sendMessageRequest: SendMessage = when {
                 message.isReply ->

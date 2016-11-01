@@ -50,8 +50,12 @@ fun handleCommand(message: Message): SendMessage {
     val sendMessageRequest = when(command) {
         "/addtask" -> handleForceReply(message, commandReplies[command])
         "/showtasks" -> {
-            val tasksListString = BotDataServices.getTasksList(message.from)
-            handleSimpleTextMessage(message, tasksListString)
+//            val tasksListString = BotDataServices.getTasksList(message.from)
+//            handleSimpleTextMessage(message, tasksListString)
+            val userUUID = BotDataServices.getCgUser(message.from)!!.userUUID
+            //TODO: remove harcoded url
+            val tasksUrl = "http://54.147.152.45:8080/#!/tasks/" + userUUID
+            handleSimpleTextMessage(message, tasksUrl)
         }
         else -> handleEchoMessage(message)
     }

@@ -9,7 +9,7 @@ angular.module('bookme')
   });
 }])
 
-.controller('tasksCtrl', function($scope, $routeParams) {
+.controller('tasksCtrl', function($scope, $routeParams, RestService) {
     $scope.userId = $routeParams.uuid;
-
+    $scope.tasks = RestService.Task.query({userUUID: $scope.userId})
 });

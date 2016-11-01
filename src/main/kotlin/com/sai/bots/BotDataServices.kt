@@ -33,6 +33,8 @@ object BotDataServices {
         taskRepository.save(task)
     }
 
+    fun getCgUser(telegramUser: User) = cgUserRepository.findOneByTelegramUserId(telegramUser.id)
+
     fun getTasksList(telegramUser: User): String {
         val tasks = taskRepository.findByCgUser_TelegramUserId(telegramUser.id)
         val jobStrings = tasks.map { x -> x.id.toString() + ". " + x.jobString }
