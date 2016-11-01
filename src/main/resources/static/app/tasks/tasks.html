@@ -1,5 +1,36 @@
-<ul>
-    <li ng-repeat="task in tasks">
-        {{task.jobString}}
-    </li>
-</ul>
+<div class="container tasks-page">
+    <div class="header">
+        <h4>UPSC Guru</h4>
+    </div>
+    <ig-tats-hr style="display: inline-block; width: 101%"></ig-tats-hr>
+    <div class="body">
+        <div class="dropdown pull-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">View: {{selectedTaskType}}
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="" ng-click="setSelectedTasktype('Incomplete')">Incomplete</a>
+                </li>
+                <li>
+                    <a href="" ng-click="setSelectedTasktype('Complete')">Complete</a>
+                </li>
+                <li>
+                    <a href="" ng-click="setSelectedTasktype('All Tasks')">
+                        All tasks </a>
+                </li>
+            </ul>
+        </div>
+        <table class="table">
+            <tr ng-repeat="task in tasks">
+                <td style="width: 20px">
+                    <span class="circularButtonView-label">
+                        <svg class="svgIcon " viewBox="0 0 32 32" title="checkmark">
+                            <polygon points="27.672,4.786 10.901,21.557 4.328,14.984 1.5,17.812 10.901,27.214 30.5,7.615 "></polygon>
+                        </svg>
+                    </span>
+                </td>
+                <td>{{task.jobString}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

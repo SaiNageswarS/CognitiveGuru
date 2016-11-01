@@ -1,0 +1,25 @@
+.tasks-page {
+    .header {
+        padding-top: 10px;
+        padding-left: 0;
+        h4 {
+            display: inline-block;
+            font-weight: 300;
+            font-size: 20px;
+        }
+    }
+
+    .body {
+        padding-top: 10px;
+
+        button {
+            margin-bottom: 10px;
+        }
+
+        .circularButtonView-label {
+            display: block;
+            align-self: center;
+            width: 18px;
+        }
+    }
+}

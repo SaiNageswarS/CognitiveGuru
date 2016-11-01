@@ -1,0 +1,31 @@
+.tasks-page .header {
+  padding-top: 10px;
+  padding-left: 0; }
+  .tasks-page .header h4 {
+    display: inline-block;
+    font-weight: 300;
+    font-size: 20px; }
+
+.tasks-page .body {
+  padding-top: 10px; }
+  .tasks-page .body button {
+    margin-bottom: 10px; }
+  .tasks-page .body .circularButtonView-label {
+    display: block;
+    align-self: center;
+    width: 18px; }
+
+.ig-tats-hr {
+  display: flex;
+  width: 100%;
+  margin: 0 0 0 -15px; }
+  .ig-tats-hr .start-hr {
+    background-color: #EFB70A;
+    height: 3px;
+    padding: 0;
+    width: 25%; }
+  .ig-tats-hr .end-hr {
+    background-color: #dadada;
+    height: 2px;
+    padding: 0;
+    flex: 1; }

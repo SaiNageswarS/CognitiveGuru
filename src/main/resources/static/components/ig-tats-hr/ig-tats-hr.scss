@@ -1,0 +1,19 @@
+.ig-tats-hr {
+    display: flex;
+    width: 100%;
+    margin: 0 0 0 -15px;
+
+    .start-hr {
+        background-color: #EFB70A;
+        height: 3px;
+        padding: 0;
+        width: 25%;
+    }
+
+    .end-hr {
+        background-color: #dadada;
+        height: 2px;
+        padding: 0;
+        flex: 1;
+    }
+}
