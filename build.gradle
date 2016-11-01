@@ -74,7 +74,6 @@ task deployEC2 << {
 			executeSudo "rm -Rf CognitiveGuru"
 			execute "git clone https://github.com/SaiNageswarS/CognitiveGuru.git"
 
-			execute "cd CognitiveGuru"
 			put from: "src/main/resources/application.properties",
 				into: "${remoteHome}/CognitiveGuru/src/main/resources/application.properties"
 
