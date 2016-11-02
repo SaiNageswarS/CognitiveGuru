@@ -16,10 +16,53 @@
             margin-bottom: 10px;
         }
 
-        .circularButtonView-label {
-            display: block;
-            align-self: center;
-            width: 18px;
+        .completedText {
+            color: #dadada;
         }
+
+        .circularButtonView {
+            -webkit-box-align: center;
+            align-items: center;
+            border: 1px solid #B9BCC0;
+            border-radius: 50%;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            background-color: transparent;
+            color: #B9BCC0;
+            fill: #B9BCC0;
+            // display: inline-flex;
+            flex-shrink: 0;
+            -ms-flex-negative: 0;
+            height: 30px;
+            -webkit-box-pack: center;
+            -moz-box-pack: center;
+            justify-content: center;
+            transition: border 200ms,box-shadow 200ms,color 200ms;
+            width: 30px;
+        }
+
+        .circularToggleButtonView-button {
+            border: 1px solid #B9BCC0;
+            fill: #CDCFD2;
+            padding: 2px;
+
+            .circularButtonView-label {
+                display: block;
+                align-self: center;
+            }
+
+            &.completed {
+                border-color: #D4F2E8;
+                background-color: #D4F2E8;
+                color: #fff;
+                fill: #fff;
+            }
+        }
+
+        .circularButtonView--xsmall {
+            height: 20px;
+            width: 20px;
+        }
+
     }
 }

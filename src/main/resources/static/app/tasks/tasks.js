@@ -11,10 +11,16 @@ angular.module('bookme')
 
 .controller('tasksCtrl', function($scope, $routeParams, RestService) {
     $scope.userId = $routeParams.uuid;
-    $scope.tasks = RestService.Task.query({userUUID: $scope.userId});
     $scope.selectedTaskType = "Incomplete";
 
-    $scope.setSelectedTasktype = function(taskType) {
+    var setSelectedTasktype = function(taskType) {
       $scope.selectedTaskType = taskType;
+      $scope.tasks = RestService.Task
+                      .query({userUUID: $scope.userId,
+                              taskType: $scope.selectedTaskType
+                              });
     };
+    
+    setSelectedTasktype($scope.selectedTaskType);
+    $scope.setSelectedTasktype = setSelectedTasktype;
 });
