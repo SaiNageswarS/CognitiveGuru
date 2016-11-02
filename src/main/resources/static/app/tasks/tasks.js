@@ -23,4 +23,9 @@ angular.module('bookme')
     
     setSelectedTasktype($scope.selectedTaskType);
     $scope.setSelectedTasktype = setSelectedTasktype;
+
+    $scope.taskStatusToggle = function(task) {
+        task.finishedOn = (task.finishedOn === null)?new Date():null;
+        task.$save();
+    };
 });
