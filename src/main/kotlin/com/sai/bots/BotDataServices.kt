@@ -1,21 +1,19 @@
 package com.sai.bots
 
-import com.sai.ApplicationContextProvider
 import com.sai.models.CgUser
 import com.sai.models.Task
 import com.sai.repositories.TaskRepository
 import com.sai.repositories.CgUserRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import org.telegram.telegrambots.api.objects.User
 /**
  * Created by sainageswar on 16/10/16.
  */
-
-object BotDataServices {
-    private var cgUserRepository: CgUserRepository =
-            ApplicationContextProvider.appContext!!.getBean("cgUserRepository") as CgUserRepository
-    private var taskRepository:TaskRepository =
-            ApplicationContextProvider.appContext!!.getBean("taskRepository") as TaskRepository
+@Component
+class BotDataServices @Autowired constructor(val cgUserRepository: CgUserRepository,
+                                             val taskRepository:TaskRepository){
 
     fun handleNewTelegramUser(email: String, telegramUser: User) {
         var user = cgUserRepository.findOneByEmail(email)

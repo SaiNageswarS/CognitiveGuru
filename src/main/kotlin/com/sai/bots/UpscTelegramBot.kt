@@ -1,8 +1,9 @@
 package com.sai.bots
 
-import com.sai.ApplicationContextProvider
 import com.sai.models.CgUser
-import com.sai.repositories.CgUserRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 import org.telegram.telegrambots.api.methods.send.SendMessage
 import org.telegram.telegrambots.api.objects.Message
 import org.telegram.telegrambots.api.objects.Update
@@ -11,27 +12,33 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot
 /**
  * Created by sainageswar on 16/10/16.
  */
-class UpscTelegramBot: TelegramLongPollingBot() {
-    override fun getBotUsername(): String
-            = ApplicationContextProvider.getProperty("telegram.upscBotUsername")
-    override fun getBotToken(): String
-            = ApplicationContextProvider.getProperty("telegram.upscBotToken")
+@Component
+class UpscTelegramBot (
+        @Value("\${telegram.upscBotUsername}") val upscBotUsername: String,
+        @Value("\${telegram.upscBotToken}") val upscBotToken: String,
+        @Autowired val botDataServices: BotDataServices,
+        @Autowired val messageHandlers: MessageHandlers
+    ): TelegramLongPollingBot() {
+
+    override fun getBotUsername(): String = upscBotUsername
+
+    override fun getBotToken(): String = upscBotToken
 
     override fun onUpdateReceived(update: Update?) {
         if(update != null && update.hasMessage()){
             val message: Message = update.getMessage();
 
-            val cgUser: CgUser? = BotDataServices.getCgUser(message.from)
+            val cgUser: CgUser? = botDataServices.getCgUser(message.from)
 
             val sendMessageRequest: SendMessage = when {
                 message.isReply ->
-                    handleReply(message)
+                    messageHandlers.handleReply(message)
                 cgUser == null ->
-                    handleNoUser(message)
+                    messageHandlers.handleNoUser(message)
                 message.isCommand ->
-                    handleCommand(message)
+                    messageHandlers.handleCommand(message)
                 else ->
-                    handleEchoMessage(message)
+                    messageHandlers.handleEchoMessage(message)
             }
             sendMessage(sendMessageRequest)
         }

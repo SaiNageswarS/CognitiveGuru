@@ -17,16 +17,13 @@ open class CognitiveGuruApplication {
     private val log = LoggerFactory.getLogger(CognitiveGuruApplication::class.java)
 
     @Autowired
-    private var appContext: ApplicationContext? = null;
+    private var upscTelegramBot: UpscTelegramBot? = null
 
     @Bean
     open fun init() = CommandLineRunner {
-        // initialize application context
-        ApplicationContextProvider.appContext = appContext
-
         val telegramBotsApi: TelegramBotsApi = TelegramBotsApi();
         try {
-            telegramBotsApi.registerBot(UpscTelegramBot());
+            telegramBotsApi.registerBot(upscTelegramBot)
         } catch (e: TelegramApiException) {
             log.error("Bot registration error", e)
         }
