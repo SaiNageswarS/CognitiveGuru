@@ -1,5 +1,6 @@
 package com.sai.bots
 
+import com.sai.models.CgUser
 import org.slf4j.LoggerFactory
 import org.telegram.telegrambots.api.methods.send.SendMessage
 import org.telegram.telegrambots.api.objects.Message
@@ -72,7 +73,7 @@ class MessageHandlers (@Autowired val botDataServices: BotDataServices,
         return sendMessageRequest
     }
 
-    fun handleReply(message: Message): SendMessage {
+    fun handleReply(message: Message, cgUser: CgUser?): SendMessage {
         assert(message.isReply)
 
         val earlierMessage = message.replyToMessage.text
@@ -83,7 +84,7 @@ class MessageHandlers (@Autowired val botDataServices: BotDataServices,
                 handleSimpleTextMessage(message, "Welcome to Guru")
             }
             "Please enter task" -> {
-                botDataServices.createTask(message.text, message.from)
+                botDataServices.createTask(message.text, cgUser)
                 handleSimpleTextMessage(message, "Task Added")
             }
             else -> handleEchoMessage(message)

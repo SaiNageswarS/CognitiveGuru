@@ -32,7 +32,7 @@ class UpscTelegramBot (
 
             val sendMessageRequest: SendMessage = when {
                 message.isReply ->
-                    messageHandlers.handleReply(message)
+                    messageHandlers.handleReply(message, cgUser)
                 cgUser == null ->
                     messageHandlers.handleNoUser(message)
                 message.isCommand ->

@@ -24,14 +24,15 @@ class BotDataServices @Autowired constructor(val cgUserRepository: CgUserReposit
         cgUserRepository.save(user)
     }
 
-    fun createTask(jobString: String, telegramUser: User) {
-        val user = cgUserRepository.findOneByTelegramUserId(telegramUser.id)
+    fun createTask(jobString: String, cgUser: CgUser?) {
         val currentDate = Timestamp(System.currentTimeMillis())
-        val task = Task(jobString = jobString, cgUser = user, created_at = currentDate)
+        val task = Task(jobString = jobString, cgUser = cgUser, created_at = currentDate)
         taskRepository.save(task)
     }
 
     fun getCgUser(telegramUser: User) = cgUserRepository.findOneByTelegramUserId(telegramUser.id)
+
+    fun saveUser(cgUser: CgUser) = cgUserRepository.save(cgUser)
 
     fun getTasksList(telegramUser: User): String {
         val tasks = taskRepository.findByCgUser_TelegramUserId(telegramUser.id)

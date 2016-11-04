@@ -9,9 +9,10 @@ import org.telegram.telegrambots.TelegramBotsApi
 import org.telegram.telegrambots.exceptions.TelegramApiException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.ApplicationContext
+import org.springframework.scheduling.annotation.EnableScheduling
 
 @SpringBootApplication
+@EnableScheduling
 open class CognitiveGuruApplication {
 
     private val log = LoggerFactory.getLogger(CognitiveGuruApplication::class.java)
@@ -21,7 +22,7 @@ open class CognitiveGuruApplication {
 
     @Bean
     open fun init() = CommandLineRunner {
-        val telegramBotsApi: TelegramBotsApi = TelegramBotsApi();
+        val telegramBotsApi: TelegramBotsApi = TelegramBotsApi()
         try {
             telegramBotsApi.registerBot(upscTelegramBot)
         } catch (e: TelegramApiException) {
