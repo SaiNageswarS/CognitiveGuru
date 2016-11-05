@@ -22,7 +22,7 @@ class UpscTelegramBot (
     ): TelegramLongPollingBot() {
 
     // creating a thread pool of 10 threads
-    private val exec = Executors.newFixedThreadPool(10)
+    private val exec = Executors.newFixedThreadPool(2)
 
     override fun getBotUsername(): String = upscBotUsername
 
