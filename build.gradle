@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.0.3'
+		kotlinVersion = '1.0.4'
 		springBootVersion = '2.0.0.BUILD-SNAPSHOT'
 	}
 	repositories {
@@ -11,8 +11,8 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath 'org.hidetake:gradle-ssh-plugin:2.7.0'
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 	}
 }
 
@@ -39,11 +39,13 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
 	compile('org.postgresql:postgresql')
-	compile('com.github.rubenlagus:TelegramBots:v2.4.0')
+	// https://mvnrepository.com/artifact/org.telegram/telegrambots
+	compile group: 'org.telegram', name: 'telegrambots', version: '2.4.0'
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
 
 task buildDocker(dependsOn: build, type:Exec) {

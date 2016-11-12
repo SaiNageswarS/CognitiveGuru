@@ -15,20 +15,21 @@ import org.telegram.telegrambots.api.objects.User
 class BotDataServices @Autowired constructor(val cgUserRepository: CgUserRepository,
                                              val taskRepository:TaskRepository){
 
-    fun handleNewTelegramUser(email: String, telegramUser: User) {
-        var user = cgUserRepository.findOneByEmail(email)
-        if (user == null) {
-            user = CgUser(email=email)
+    /**
+     * Check if a user already exists with same email
+     * Delete if exists and update email of current user
+     */
+    fun updateUserEmail(cgUser: CgUser, email: String) {
+        val user = cgUserRepository.findOneByEmail(email)
+        if (user != null && user.id != cgUser.id) {
+            cgUserRepository.delete(user)
         }
-        user.telegramUserId = telegramUser.id
-        cgUserRepository.save(user)
+        cgUser.email = email
+        cgUser.userContext = UserContext.NO_CONTEXT
+        cgUserRepository.save(cgUser)
     }
 
-    fun createTask(jobString: String, cgUser: CgUser?) {
-        val currentDate = Timestamp(System.currentTimeMillis())
-        val task = Task(jobString = jobString, cgUser = cgUser, created_at = currentDate)
-        taskRepository.save(task)
-    }
+    fun createTask(task: Task) = taskRepository.save(task)
 
     fun getCgUser(telegramUser: User) = cgUserRepository.findOneByTelegramUserId(telegramUser.id)
 
