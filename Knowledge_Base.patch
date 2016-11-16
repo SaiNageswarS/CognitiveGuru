@@ -1,0 +1,152 @@
+Index: src/main/kotlin/com/sai/bots/UserContext.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/kotlin/com/sai/bots/UserContext.kt	(revision 2c1fdc4649ead6c2c890902763abed9cee769057)
++++ src/main/kotlin/com/sai/bots/UserContext.kt	(revision )
+@@ -6,5 +6,6 @@
+ enum class UserContext {
+     ENTER_EMAIL,
+     ADD_TASK,
++    ADD_KNOWLEDGE,
+     NO_CONTEXT
+ }
+\ No newline at end of file
+Index: src/main/kotlin/com/sai/models/kb/KnowledgeModels.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/kotlin/com/sai/models/kb/KnowledgeModels.kt	(revision )
++++ src/main/kotlin/com/sai/models/kb/KnowledgeModels.kt	(revision )
+@@ -0,0 +1,30 @@
++package com.sai.models.kb
++
++import javax.persistence.*
++
++/**
++ * Created by sainageswar on 13/11/16.
++ */
++
++@Entity
++data class Subject(
++        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) val id: Long = 0,
++        var name: String = ""
++)
++
++@Entity
++data class Topic(
++        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) val id: Long = 0,
++        var name: String = "",
++        @ManyToOne var subject: Subject? = null
++)
++
++@Entity
++data class Fact(
++        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) val id: Long = 0,
++        @ManyToOne var topic: Topic? = null,
++        var question: String = "",
++        var answer: String = "",
++        @ElementCollection var options: Set<String> = mutableSetOf(),
++        var description: String = ""
++)
+\ No newline at end of file
+Index: src/main/kotlin/com/sai/bots/UpscTelegramBot.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/kotlin/com/sai/bots/UpscTelegramBot.kt	(revision 2c1fdc4649ead6c2c890902763abed9cee769057)
++++ src/main/kotlin/com/sai/bots/UpscTelegramBot.kt	(revision )
+@@ -1,5 +1,6 @@
+ package com.sai.bots
+ 
++import com.sai.bots.commands.AddKnowledgeCommand
+ import com.sai.bots.commands.AddTaskCommand
+ import com.sai.bots.commands.CommandRegistry
+ import com.sai.bots.commands.ShowTasksCommand
+@@ -25,14 +26,16 @@
+         @Value("\${telegram.upscBotToken}") val upscBotToken: String,
+         @Autowired val botDataServices: BotDataServices,
+         @Autowired val addTaskCommand: AddTaskCommand,
+-        @Autowired val showTasksCommand: ShowTasksCommand
++        @Autowired val showTasksCommand: ShowTasksCommand,
++        @Autowired val addKnowledgeCommand: AddKnowledgeCommand
+     ): TelegramLongPollingBot() {
+ 
+     val commandRegistry = CommandRegistry()
+ 
+     init {
+         commandRegistry.register(addTaskCommand,
+-                                 showTasksCommand)
++                                 showTasksCommand,
++                                 addKnowledgeCommand)
+         commandRegistry.defaultConsumer = BiConsumer { absSender, message ->
+             val reply = MessageHandlers.handleSimpleTextMessage(message.chatId.toString(),
+                             ReplyConstants.UNKNOWN_COMMAND)
+@@ -85,6 +88,10 @@
+                 cgUser.userContext = UserContext.NO_CONTEXT
+                 botDataServices.saveUser(cgUser)
+                 MessageHandlers.handleSimpleTextMessage(message.chatId.toString(), "Task Added")
++            }
++
++            UserContext.ADD_KNOWLEDGE -> {
++                MessageHandlers.handleSimpleTextMessage(message.chatId.toString(), "Thank you")
+             }
+ 
+             else ->
+\ No newline at end of file
+Index: src/main/kotlin/com/sai/bots/commands/AddKnowledgeCommand.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/kotlin/com/sai/bots/commands/AddKnowledgeCommand.kt	(revision )
++++ src/main/kotlin/com/sai/bots/commands/AddKnowledgeCommand.kt	(revision )
+@@ -0,0 +1,28 @@
++package com.sai.bots.commands
++
++import com.sai.bots.BotDataServices
++import com.sai.bots.UserContext
++import com.sai.bots.messageHandlers.MessageHandlers
++import com.sai.bots.messageHandlers.ReplyConstants
++import com.sai.models.CgUser
++import org.springframework.beans.factory.annotation.Autowired
++import org.springframework.stereotype.Component
++import org.telegram.telegrambots.api.objects.Chat
++import org.telegram.telegrambots.api.objects.User
++import org.telegram.telegrambots.bots.AbsSender
++
++/**
++ * Created by sainageswar on 15/11/16.
++ */
++@Component
++class AddKnowledgeCommand(
++        @Autowired val botDataServices: BotDataServices
++    ) :CgBotCommand("addknowledge", "Add to knowledge base") {
++    override fun execute(absSender: AbsSender, telegramUser: User, chat: Chat,
++                         arguments: Array<out String>, cgUser: CgUser) {
++        cgUser.userContext = UserContext.ADD_KNOWLEDGE
++        botDataServices.saveUser(cgUser)
++        val reply = MessageHandlers.handleForceReply(chat.id.toString(), ReplyConstants.ADD_KNOWLEDGE)
++        absSender.sendMessage(reply)
++    }
++}
+\ No newline at end of file
+Index: src/main/kotlin/com/sai/bots/messageHandlers/ReplyConstants.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/kotlin/com/sai/bots/messageHandlers/ReplyConstants.kt	(revision 2c1fdc4649ead6c2c890902763abed9cee769057)
++++ src/main/kotlin/com/sai/bots/messageHandlers/ReplyConstants.kt	(revision )
+@@ -6,6 +6,7 @@
+ object ReplyConstants {
+     val ENTER_EMAIL = "Please provide email address"
+     val ADD_TASK = "Please enter task"
++    val ADD_KNOWLEDGE = "Please send a photo"
+     val UNKNOWN_COMMAND = "Unknown command"
+     val WELCOME_MESSAGE = "Welcome to Guru"
+ }
+\ No newline at end of file

@@ -6,6 +6,7 @@ package com.sai.bots.messageHandlers
 object ReplyConstants {
     val ENTER_EMAIL = "Please provide email address"
     val ADD_TASK = "Please enter task"
+    val ADD_KNOWLEDGE = "Please send a photo"
     val UNKNOWN_COMMAND = "Unknown command"
     val WELCOME_MESSAGE = "Welcome to Guru"
 }

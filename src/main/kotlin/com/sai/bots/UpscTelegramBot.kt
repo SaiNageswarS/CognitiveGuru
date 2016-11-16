@@ -1,5 +1,6 @@
 package com.sai.bots
 
+import com.sai.bots.commands.AddKnowledgeCommand
 import com.sai.bots.commands.AddTaskCommand
 import com.sai.bots.commands.CommandRegistry
 import com.sai.bots.commands.ShowTasksCommand
@@ -25,14 +26,16 @@ class UpscTelegramBot (
         @Value("\${telegram.upscBotToken}") val upscBotToken: String,
         @Autowired val botDataServices: BotDataServices,
         @Autowired val addTaskCommand: AddTaskCommand,
-        @Autowired val showTasksCommand: ShowTasksCommand
+        @Autowired val showTasksCommand: ShowTasksCommand,
+        @Autowired val addKnowledgeCommand: AddKnowledgeCommand
     ): TelegramLongPollingBot() {
 
     val commandRegistry = CommandRegistry()
 
     init {
         commandRegistry.register(addTaskCommand,
-                                 showTasksCommand)
+                                 showTasksCommand,
+                                 addKnowledgeCommand)
         commandRegistry.defaultConsumer = BiConsumer { absSender, message ->
             val reply = MessageHandlers.handleSimpleTextMessage(message.chatId.toString(),
                             ReplyConstants.UNKNOWN_COMMAND)
@@ -85,6 +88,10 @@ class UpscTelegramBot (
                 cgUser.userContext = UserContext.NO_CONTEXT
                 botDataServices.saveUser(cgUser)
                 MessageHandlers.handleSimpleTextMessage(message.chatId.toString(), "Task Added")
+            }
+
+            UserContext.ADD_KNOWLEDGE -> {
+                MessageHandlers.handleSimpleTextMessage(message.chatId.toString(), "Thank you")
             }
 
             else ->

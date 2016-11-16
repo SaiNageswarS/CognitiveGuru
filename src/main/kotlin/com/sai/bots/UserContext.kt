@@ -6,5 +6,6 @@ package com.sai.bots
 enum class UserContext {
     ENTER_EMAIL,
     ADD_TASK,
+    ADD_KNOWLEDGE,
     NO_CONTEXT
 }
