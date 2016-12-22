@@ -12,5 +12,9 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/apiai")
 class ApiAI {
     @PostMapping
-    fun handleMessage(@RequestBody request: Map<String, String>) = request
+    fun handleMessage(@RequestBody request: MutableMap<Any, Any>): Map<Any, Any> {
+        println(request)
+        request["responseBy"] = "kotlin"
+        return request
+    }
 }
