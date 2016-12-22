@@ -2,7 +2,6 @@ package com.sai.bots.jobs
 
 import com.sai.bots.UpscTelegramBot
 import com.sai.repositories.CgUserRepository
-import org.json.JSONObject
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Component
 import org.telegram.telegrambots.api.methods.BotApiMethod
 import org.telegram.telegrambots.api.methods.send.SendMessage
 import org.telegram.telegrambots.api.objects.Message
+import org.telegram.telegrambots.exceptions.TelegramApiRequestException
 import org.telegram.telegrambots.updateshandlers.SentCallback
 
 /**
@@ -17,20 +17,19 @@ import org.telegram.telegrambots.updateshandlers.SentCallback
  */
 
 val emptyCallback = object: SentCallback<Message> {
+    override fun onResult(method: BotApiMethod<Message>?, response: Message?) {
+        logger.info("Success while sending message")
+    }
+
+    override fun onError(method: BotApiMethod<Message>?, apiException: TelegramApiRequestException?) {
+        logger.error("Error while sending message")
+    }
+
     val logger = LoggerFactory.getLogger(CheckDailyTasksJob::class.java)
 
     override fun onException(method: BotApiMethod<Message>?, exception: Exception?) {
         logger.error("Exception while sending message.")
     }
-
-    override fun onResult(method: BotApiMethod<Message>?, jsonObject: JSONObject?) {
-        logger.info("Success while sending message")
-    }
-
-    override fun onError(method: BotApiMethod<Message>?, jsonObject: JSONObject?) {
-        logger.error("Error while sending message")
-    }
-
 }
 
 @Component

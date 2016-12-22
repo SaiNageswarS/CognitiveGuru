@@ -14,8 +14,7 @@ object MessageHandlers {
 
     fun handleSimpleTextMessage(chatId: String, text: String?): SendMessage {
         val sendMessageRequest = SendMessage()
-        sendMessageRequest.chatId = chatId //who should get from the message the sender that sent it.
-        sendMessageRequest.text = text
+                                    .setChatId(chatId).setText(text)
         log.info(sendMessageRequest.toString())
         return sendMessageRequest
     }

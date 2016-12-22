@@ -8,12 +8,14 @@ import com.sai.bots.messageHandlers.MessageHandlers
 import com.sai.bots.messageHandlers.ReplyConstants
 import com.sai.models.CgUser
 import com.sai.models.Task
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.api.objects.Message
 import org.telegram.telegrambots.api.objects.Update
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
+import org.telegram.telegrambots.updateshandlers.DownloadFileCallback
 import java.util.concurrent.Executors
 import java.util.function.BiConsumer
 
@@ -31,6 +33,7 @@ class UpscTelegramBot (
     ): TelegramLongPollingBot() {
 
     val commandRegistry = CommandRegistry()
+    private val log = LoggerFactory.getLogger(UpscTelegramBot::class.java)
 
     init {
         commandRegistry.register(addTaskCommand,
@@ -91,6 +94,26 @@ class UpscTelegramBot (
             }
 
             UserContext.ADD_KNOWLEDGE -> {
+                if (message.photo.size == 0) {
+                    MessageHandlers.handleSimpleTextMessage(message.chatId.toString(),
+                            "Please send an image of Q&A")
+                }
+                else {
+                    cgUser.userContext = UserContext.NO_CONTEXT
+                    val kb_image = message.photo[2]
+                    downloadFileAsync(kb_image.filePath,
+                            object :DownloadFileCallback<String>{
+                                override fun onResult(file: String?, output: java.io.File?) {
+                                    //Todo: write file to s3
+                                }
+
+                                override fun onException(file: String?, exception: Exception?) {
+                                    log.error("Error while downloading file", exception)
+                                }
+
+                            })
+
+                }
                 MessageHandlers.handleSimpleTextMessage(message.chatId.toString(), "Thank you")
             }
 
