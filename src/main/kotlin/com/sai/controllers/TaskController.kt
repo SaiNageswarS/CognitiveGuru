@@ -23,6 +23,6 @@ class TaskController @Autowired constructor(val repository: TaskRepository){
         }
     }
 
-    @PostMapping("")
+    @PostMapping
     fun save(@RequestBody task: Task) = repository.save(task)
 }

@@ -3,7 +3,6 @@ package com.sai.models
 /**
  * Created by sainageswar on 14/10/16.
  */
-import com.sai.bots.UserContext
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.hibernate.validator.constraints.Email
@@ -14,6 +13,12 @@ import javax.persistence.*
 /**
  * Created by sainageswar on 14/10/16.
  */
+
+enum class UserContext {
+    ENTER_EMAIL,
+    ADD_TASK,
+    NO_CONTEXT
+}
 
 @Entity
 class CgUser(
