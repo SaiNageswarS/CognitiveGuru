@@ -9,9 +9,9 @@ import java.util.*
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-open class ApiAIRequest {
-    var id: String? = null
-    var timestamp: Date? = null
-    var originalRequest: OriginalRequest? = null
+open class ApiAIRequest (
+    var id: String? = null,
+    var timestamp: Date? = null,
+    var originalRequest: OriginalRequest? = null,
     var result: ApiAIResult? = null
-}
+)

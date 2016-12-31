@@ -16,6 +16,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
         property = "source")
 @JsonSubTypes(JsonSubTypes.Type(value = TelegramApiAIRequest::class, name = "telegram"),
               JsonSubTypes.Type(value = GuruClientAPIRequest::class, name = "guruClient"))
-abstract class OriginalRequest {
+abstract class OriginalRequest (
     var source: String? = null
-}
+)
