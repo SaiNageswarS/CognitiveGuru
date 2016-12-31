@@ -31,8 +31,7 @@ class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
         var response = ApiAIResponse(displayText = "I couldn't get that.")
 
         if (cgUser == null) {
-            response = ApiAIResponse(displayText = "Hi. Welcome to Cog Guru. Please enter your email",
-                    speech = "Hi. Welcome to Cog Guru. Please enter your email",
+            response = ApiAIResponse(speech = "Hi. Welcome to Cog Guru. Please enter your email",
                     contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
         }
 
