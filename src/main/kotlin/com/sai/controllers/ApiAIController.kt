@@ -34,6 +34,6 @@ class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
                     contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
             return response
         }
-        return ApiAIResponse()
+        return ApiAIResponse(displayText = "Jaggi u r wrong")
     }
 }
