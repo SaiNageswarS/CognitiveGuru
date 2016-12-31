@@ -21,19 +21,32 @@ import org.springframework.web.bind.annotation.RestController
 class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
     private val log = LoggerFactory.getLogger(ApiAIController::class.java)
 
+//    @PostMapping
+//    fun handleMessage(@RequestBody request: ApiAIRequest): ApiAIResponse {
+//        log.info("Request:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
+//                .writeValueAsString(request))
+//
+//        val handler = BotHandler.getHandler(dataRepo, request)
+//        val cgUser = handler.getUser()
+//        var response = ApiAIResponse(displayText = "I couldn't get that.")
+//
+//        if (cgUser == null) {
+//            response = ApiAIResponse(speech = "Hi. Welcome to Cog Guru. Please enter your email",
+//                    contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
+//        }
+//
+//        log.info("Response:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
+//                .writeValueAsString(response))
+//        return response
+//    }
+
     @PostMapping
-    fun handleMessage(@RequestBody request: ApiAIRequest): ApiAIResponse {
+    fun handleMessage(@RequestBody request: Map<String, Any>): ApiAIResponse {
         log.info("Request:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
                 .writeValueAsString(request))
 
-        val handler = BotHandler.getHandler(dataRepo, request)
-        val cgUser = handler.getUser()
-        var response = ApiAIResponse(displayText = "I couldn't get that.")
-
-        if (cgUser == null) {
-            response = ApiAIResponse(speech = "Hi. Welcome to Cog Guru. Please enter your email",
-                    contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
-        }
+        val response = ApiAIResponse(speech = "Hi. Welcome to Cog Guru. Please enter your email",
+                                    contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
 
         log.info("Response:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
                 .writeValueAsString(response))
