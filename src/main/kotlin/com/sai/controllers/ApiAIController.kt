@@ -23,17 +23,20 @@ class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
 
     @PostMapping
     fun handleMessage(@RequestBody request: ApiAIRequest): ApiAIResponse {
-        log.info("Got msg " + ObjectMapper().writerWithDefaultPrettyPrinter()
+        log.info("Request:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
                 .writeValueAsString(request))
 
         val handler = BotHandler.getHandler(dataRepo, request)
         val cgUser = handler.getUser()
+        var response = ApiAIResponse(displayText = "I couldn't get that.")
 
         if (cgUser == null) {
-            val response = ApiAIResponse(displayText = "Hi. Welcome to Cog Guru. Please enter your email",
+            response = ApiAIResponse(displayText = "Hi. Welcome to Cog Guru. Please enter your email",
                     contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
-            return response
         }
-        return ApiAIResponse(displayText = "Jaggi u r wrong")
+
+        log.info("Response:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
+                .writeValueAsString(response))
+        return response
     }
 }
