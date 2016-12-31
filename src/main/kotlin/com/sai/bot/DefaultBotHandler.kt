@@ -1,7 +1,7 @@
 package com.sai.bot
 
 import com.sai.beans.ApiAIRequest
-import com.sai.beans.GuruClientAPIRequest
+import com.sai.beans.chatClients.GuruClientAPIRequest
 import com.sai.models.CgUser
 import com.sai.repositories.DataRepository
 
@@ -12,9 +12,9 @@ import com.sai.repositories.DataRepository
 open class DefaultBotHandler(dataRepo: DataRepository, request: ApiAIRequest) :
         BotHandler(dataRepo, request) {
 
-    val originalRequest: GuruClientAPIRequest = request.originalRequest as GuruClientAPIRequest
+    val originalRequest: GuruClientAPIRequest? = request.originalRequest as? GuruClientAPIRequest
 
     override fun getUser(): CgUser? {
-        return dataRepo.userRepo.findOneByEmail(originalRequest.email)
+        return dataRepo.userRepo.findOneByEmail(originalRequest?.email ?: "agent@guruapi.com")
     }
 }

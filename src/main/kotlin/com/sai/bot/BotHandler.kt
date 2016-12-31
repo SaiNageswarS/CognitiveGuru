@@ -1,8 +1,7 @@
 package com.sai.bot
 
 import com.sai.beans.ApiAIRequest
-import com.sai.beans.OriginalRequest
-import com.sai.beans.TelegramApiAIRequest
+import com.sai.beans.chatClients.TelegramApiAIRequest
 import com.sai.models.CgUser
 import com.sai.repositories.DataRepository
 

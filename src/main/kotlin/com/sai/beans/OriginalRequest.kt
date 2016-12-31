@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.sai.beans.chatClients.GuruClientAPIRequest
+import com.sai.beans.chatClients.TelegramApiAIRequest
 
 /**
  * Created by sainageswar on 30/12/16.
