@@ -1,6 +1,8 @@
 package com.sai.controllers
 
 import com.sai.beans.ApiAIRequest
+import com.sai.beans.ApiAIResponse
+import com.sai.beans.Context
 import com.sai.bot.BotHandler
 import com.sai.repositories.DataRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,10 +18,15 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/apiai")
 class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
     @PostMapping
-    fun handleMessage(@RequestBody request: ApiAIRequest): Map<String, Any> {
+    fun handleMessage(@RequestBody request: ApiAIRequest): ApiAIResponse {
         val handler = BotHandler.getHandler(dataRepo, request)
         val cgUser = handler.getUser()
 
-        return mapOf("status" to "ok")
+        if (cgUser == null) {
+            val response = ApiAIResponse(displayText = "Hi. Welcome to Cog Guru. Please enter your email",
+                    contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
+            return response
+        }
+        return ApiAIResponse()
     }
 }
