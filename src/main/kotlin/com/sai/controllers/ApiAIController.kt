@@ -1,6 +1,6 @@
 package com.sai.controllers
 
-import com.sai.CognitiveGuruApplication
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.sai.beans.ApiAIRequest
 import com.sai.beans.ApiAIResponse
 import com.sai.beans.Context
@@ -23,7 +23,8 @@ class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
 
     @PostMapping
     fun handleMessage(@RequestBody request: ApiAIRequest): ApiAIResponse {
-        log.info("Got msg " + request)
+        log.info("Got msg " + ObjectMapper().writerWithDefaultPrettyPrinter()
+                .writeValueAsString(request))
 
         val handler = BotHandler.getHandler(dataRepo, request)
         val cgUser = handler.getUser()
