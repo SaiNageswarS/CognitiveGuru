@@ -23,5 +23,5 @@ class TelegramUpdate (
 )
 
 class TelegramApiAIRequest (
-    var data: TelegramUpdate = TelegramUpdate()
+    var data: Map<String, Any> = mapOf()
 ): OriginalRequest()

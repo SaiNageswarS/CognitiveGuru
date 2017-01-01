@@ -22,7 +22,7 @@ class Middleware @Autowired constructor(val dataRepo: DataRepository) {
     private fun addUser(request: ApiAIRequest): ApiAIRequest {
         val user: CgUser? = when (request.originalRequest) {
             is TelegramApiAIRequest -> {
-                val telegramId = (request.originalRequest as TelegramApiAIRequest).data.from.id
+                val telegramId = ((request.originalRequest as TelegramApiAIRequest).data["from"] as Map<String, Any>)["id"] as Int
                 dataRepo.userRepo.findOneByTelegramUserId(telegramId)
             }
             else -> {
