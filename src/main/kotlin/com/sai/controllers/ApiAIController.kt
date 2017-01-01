@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.sai.beans.ApiAIRequest
 import com.sai.beans.ApiAIResponse
 import com.sai.beans.Context
-import com.sai.bot.BotHandler
+import com.sai.bot.Middleware
+import com.sai.bot.Router
 import com.sai.repositories.DataRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 @RequestMapping("/apiai")
-class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
+class ApiAIController @Autowired constructor(val middleware: Middleware, val router: Router) {
     private val log = LoggerFactory.getLogger(ApiAIController::class.java)
 
     @PostMapping
@@ -26,30 +27,11 @@ class ApiAIController @Autowired constructor(val dataRepo: DataRepository) {
         log.info("Request:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
                 .writeValueAsString(request))
 
-        val handler = BotHandler.getHandler(dataRepo, request)
-        val cgUser = handler.getUser()
-        var response = ApiAIResponse(displayText = "I couldn't get that.")
-
-        if (cgUser == null) {
-            response = ApiAIResponse(speech = "Hi. Welcome to Cog Guru. Please enter your email",
-                    contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
-        }
+        val preProcessedRequest = middleware.preProcessRequest(request)
+        val response = router.getResponse(preProcessedRequest)
 
         log.info("Response:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
                 .writeValueAsString(response))
         return response
     }
-
-//    @PostMapping
-//    fun handleMessage(@RequestBody request: Map<String, Any>): ApiAIResponse {
-//        log.info("Request:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
-//                .writeValueAsString(request))
-//
-//        val response = ApiAIResponse(speech = "Hi. Welcome to Cog Guru. Please enter your email",
-//                                    contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
-//
-//        log.info("Response:: \n" + ObjectMapper().writerWithDefaultPrettyPrinter()
-//                .writeValueAsString(response))
-//        return response
-//    }
 }
