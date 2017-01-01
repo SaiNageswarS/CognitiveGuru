@@ -27,7 +27,7 @@ class BotController @Autowired constructor(val dataRepo: DataRepository) {
 
             val user = when(request.originalRequest) {
                 is TelegramApiAIRequest -> {
-                    val telegramId = ((request.originalRequest as TelegramApiAIRequest).data["from"] as Map<String, Any>)["id"] as Int
+                    val telegramId = (request.originalRequest as TelegramApiAIRequest).data.message.from.id
                     CgUser(email = email, telegramUserId = telegramId)
                 }
                 else ->  CgUser(email = email)

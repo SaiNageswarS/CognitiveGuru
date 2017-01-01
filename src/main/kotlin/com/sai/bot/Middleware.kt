@@ -1,7 +1,6 @@
 package com.sai.bot
 
 import com.sai.beans.ApiAIRequest
-import com.sai.beans.OriginalRequest
 import com.sai.beans.chatClients.GuruClientAPIRequest
 import com.sai.beans.chatClients.TelegramApiAIRequest
 import com.sai.models.CgUser
@@ -22,7 +21,7 @@ class Middleware @Autowired constructor(val dataRepo: DataRepository) {
     private fun addUser(request: ApiAIRequest): ApiAIRequest {
         val user: CgUser? = when (request.originalRequest) {
             is TelegramApiAIRequest -> {
-                val telegramId = ((request.originalRequest as TelegramApiAIRequest).data["from"] as Map<String, Any>)["id"] as Int
+                val telegramId = (request.originalRequest as TelegramApiAIRequest).data.message.from.id
                 dataRepo.userRepo.findOneByTelegramUserId(telegramId)
             }
             else -> {

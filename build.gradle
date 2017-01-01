@@ -39,6 +39,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.postgresql:postgresql')
+	// https://mvnrepository.com/artifact/org.telegram/telegrambots
+	compile group: 'org.telegram', name: 'telegrambots', version: '2.4.4.3'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
