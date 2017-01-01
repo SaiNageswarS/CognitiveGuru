@@ -5,8 +5,10 @@ import com.sai.beans.ApiAIResponse
 import com.sai.beans.Context
 import com.sai.beans.chatClients.TelegramApiAIRequest
 import com.sai.models.CgUser
+import com.sai.models.Task
 import com.sai.repositories.DataRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 /**
@@ -14,7 +16,8 @@ import org.springframework.stereotype.Component
  */
 
 @Component
-class BotController @Autowired constructor(val dataRepo: DataRepository) {
+class BotController (@Autowired val dataRepo: DataRepository,
+                     @Value("\${server.webUrl}") val webserverUrl: String) {
 
     fun handleNoUser(request: ApiAIRequest): ApiAIResponse {
         if (request.user != null) {
@@ -40,5 +43,16 @@ class BotController @Autowired constructor(val dataRepo: DataRepository) {
 
         return ApiAIResponse(speech = "Hi. Please enter your email to register",
                 contextOut = listOf(Context(name = "enter_email", lifespan = 1)))
+    }
+
+    fun addTask(request: ApiAIRequest): ApiAIResponse {
+        val task = request.result.parameters["task"] as? String ?: return ApiAIResponse(speech = "Usage: add task <your task>")
+        dataRepo.taskRepo.save(Task(jobString = task, cgUser = request.user))
+        return ApiAIResponse(speech = "Task added.")
+    }
+
+    fun showTasks(request: ApiAIRequest): ApiAIResponse {
+        val tasksUrl = webserverUrl + "/#!/tasks/" + request.user?.userUUID
+        return ApiAIResponse(speech = tasksUrl)
     }
 }

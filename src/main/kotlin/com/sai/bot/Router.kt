@@ -26,10 +26,13 @@ class Router @Autowired constructor(val botController: BotController) {
         }
 
         //for non-static responses
-//        when(action) {
-//            Actions.USER_ONBOARDING ->
-//        }
+        val nonStaticResponse = when(action) {
+            Actions.TASK_ADD -> botController.addTask(request)
+            Actions.TASK_SHOWALL -> botController.showTasks(request)
 
-        return ApiAIResponse(speech = "Could you please repeat")
+            else -> ApiAIResponse(speech = "Could you please repeat")
+        }
+
+        return nonStaticResponse
     }
 }
