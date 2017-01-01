@@ -11,7 +11,7 @@ enum class Actions {
         override fun getStaticResponses() = listOf<String>()
     },
     HELP {
-        override fun getStaticResponses() = listOf("Subscribe to topics.\n Add tasks. \n Show news.")
+        override fun getStaticResponses() = listOf("1. Subscribe to topics.\n2. Add tasks. \n3. Show news.")
     },
     TASK_ADD {
         override fun getStaticResponses() = listOf<String>()
