@@ -1,0 +1,27 @@
+{
+  "id": "11b042f8-46fc-42ba-82bb-26561d7c4242",
+  "name": "sort",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "latest",
+      "synonyms": [
+        "latest",
+        "recent",
+        "current",
+        "right now",
+        "breaking"
+      ]
+    },
+    {
+      "value": "top",
+      "synonyms": [
+        "top",
+        "biggest",
+        "main"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

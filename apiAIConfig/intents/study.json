@@ -1,0 +1,56 @@
+{
+  "userSays": [
+    {
+      "id": "9b366774-ef34-48a1-953a-721924fdc7c6",
+      "data": [
+        {
+          "text": "economics"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1988a380-a615-4fdb-871a-650b8f4626e4",
+      "data": [
+        {
+          "text": "study economics"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "376509da-1ece-409b-aacb-2c0635ebd1a7",
+      "data": [
+        {
+          "text": "help me in studying economics"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "db020f0a-d153-4e2c-9031-99c1f88351d7",
+  "name": "study",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

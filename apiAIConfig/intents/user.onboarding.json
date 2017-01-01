@@ -1,0 +1,65 @@
+{
+  "userSays": [
+    {
+      "id": "cdd60564-44bf-495b-a03d-33b32024cbb3",
+      "data": [
+        {
+          "text": "test@mail.com",
+          "alias": "email",
+          "meta": "@sys.email",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "12ae86b4-5732-4ef5-a6e5-e173a63a5f84",
+      "data": [
+        {
+          "text": "My email is "
+        },
+        {
+          "text": "test@mail.com",
+          "alias": "email",
+          "meta": "@sys.email",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "aa151c81-ff89-4754-a93b-9b6376f58b2d",
+  "name": "user.onboarding",
+  "auto": true,
+  "contexts": [
+    "enter_email"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "user_onboarding",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.email",
+          "name": "email",
+          "value": "$email"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

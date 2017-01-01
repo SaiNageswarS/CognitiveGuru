@@ -1,0 +1,9 @@
+{
+  "language": "en",
+  "enabledDomainFeatures": [
+    "news-domain-on"
+  ],
+  "defaultTimezone": "Asia/Calcutta",
+  "customClassifierMode": "use.after",
+  "mlMinConfidence": 0.2
+}

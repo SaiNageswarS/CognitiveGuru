@@ -1,0 +1,57 @@
+{
+  "userSays": [
+    {
+      "id": "e91d3364-bed7-408b-a919-8fcd123faeeb",
+      "data": [
+        {
+          "text": "what are my tasks"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5fa6b8ec-ea9c-4591-b5d2-d7c155ba5837",
+      "data": [
+        {
+          "text": "show my tasks"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "ce0b5e17-cc22-4db2-a855-80b94a2b8f24",
+      "data": [
+        {
+          "text": "show tasks"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "955167f0-a883-4bfa-93fe-7cabb547ce24",
+  "name": "task.show",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "task_showall",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

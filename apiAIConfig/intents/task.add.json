@@ -1,0 +1,82 @@
+{
+  "userSays": [
+    {
+      "id": "c3c2ed5c-cf40-4368-af3b-dad61e6d8e5f",
+      "data": [
+        {
+          "text": "add task to "
+        },
+        {
+          "text": "solve mock questions of math",
+          "alias": "task",
+          "meta": "@sys.any",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "47a0b83c-5617-4df7-8c73-006ec521a7f4",
+      "data": [
+        {
+          "text": "add task "
+        },
+        {
+          "text": "finish geo",
+          "alias": "task",
+          "meta": "@sys.any",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "909da4a8-d5ba-4f3d-a968-7e42632b8cfd",
+      "data": [
+        {
+          "text": "add task to "
+        },
+        {
+          "text": "finish geo",
+          "alias": "task",
+          "meta": "@sys.any",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "9a217c11-6e4f-45ce-974b-5c16445a50b5",
+  "name": "task.add",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "task_add",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@sys.any",
+          "name": "task",
+          "value": "$task",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

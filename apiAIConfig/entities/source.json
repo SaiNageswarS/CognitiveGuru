@@ -1,0 +1,72 @@
+{
+  "id": "cdccdda8-f1a6-4546-90fb-80529037615f",
+  "name": "source",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "BBC",
+      "synonyms": [
+        "BBC"
+      ]
+    },
+    {
+      "value": "CNN",
+      "synonyms": [
+        "CNN"
+      ]
+    },
+    {
+      "value": "NPR",
+      "synonyms": [
+        "NPR"
+      ]
+    },
+    {
+      "value": "ABC",
+      "synonyms": [
+        "ABC"
+      ]
+    },
+    {
+      "value": "Washington Post",
+      "synonyms": [
+        "Washington Post"
+      ]
+    },
+    {
+      "value": "New York Times",
+      "synonyms": [
+        "New York Times",
+        "The New York Times",
+        "NY Times",
+        "The NY Times"
+      ]
+    },
+    {
+      "value": "Google News",
+      "synonyms": [
+        "Google News"
+      ]
+    },
+    {
+      "value": "Yahoo",
+      "synonyms": [
+        "Yahoo"
+      ]
+    },
+    {
+      "value": "Twitter",
+      "synonyms": [
+        "Twitter"
+      ]
+    },
+    {
+      "value": "Facebook",
+      "synonyms": [
+        "Facebook"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": true
+}

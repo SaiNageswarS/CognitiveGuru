@@ -1,0 +1,51 @@
+{
+  "userSays": [
+    {
+      "id": "48818145-8956-4b16-a0c1-77737946c271",
+      "data": [
+        {
+          "text": "Hello"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "31c76fa9-3713-40a0-945f-725318643b1a",
+      "data": [
+        {
+          "text": "Hi"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5568627c-219a-4a2b-b228-297ddba9ffd9",
+  "name": "Default Welcome Intent",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input_welcome",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "WELCOME"
+    }
+  ]
+}

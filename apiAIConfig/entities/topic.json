@@ -1,0 +1,136 @@
+{
+  "id": "559c934b-bcba-43b0-ac73-6d3f18162c1e",
+  "name": "topic",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "technology",
+      "synonyms": [
+        "technology",
+        "tech"
+      ]
+    },
+    {
+      "value": "sports",
+      "synonyms": [
+        "sports"
+      ]
+    },
+    {
+      "value": "music",
+      "synonyms": [
+        "music"
+      ]
+    },
+    {
+      "value": "fashion",
+      "synonyms": [
+        "fashion"
+      ]
+    },
+    {
+      "value": "business",
+      "synonyms": [
+        "business"
+      ]
+    },
+    {
+      "value": "crime",
+      "synonyms": [
+        "crime"
+      ]
+    },
+    {
+      "value": "game",
+      "synonyms": [
+        "game"
+      ]
+    },
+    {
+      "value": "arts",
+      "synonyms": [
+        "arts"
+      ]
+    },
+    {
+      "value": "space",
+      "synonyms": [
+        "space"
+      ]
+    },
+    {
+      "value": "political",
+      "synonyms": [
+        "political"
+      ]
+    },
+    {
+      "value": "science",
+      "synonyms": [
+        "science"
+      ]
+    },
+    {
+      "value": "education",
+      "synonyms": [
+        "education"
+      ]
+    },
+    {
+      "value": "hockey",
+      "synonyms": [
+        "hockey"
+      ]
+    },
+    {
+      "value": "world politics",
+      "synonyms": [
+        "world politics"
+      ]
+    },
+    {
+      "value": "world",
+      "synonyms": [
+        "world"
+      ]
+    },
+    {
+      "value": "local",
+      "synonyms": [
+        "local"
+      ]
+    },
+    {
+      "value": "international",
+      "synonyms": [
+        "international"
+      ]
+    },
+    {
+      "value": "consulting",
+      "synonyms": [
+        "consulting"
+      ]
+    },
+    {
+      "value": "finance",
+      "synonyms": [
+        "finance"
+      ]
+    },
+    {
+      "value": "football",
+      "synonyms": [
+        "football"
+      ]
+    },
+    {
+      "value": "politics",
+      "synonyms": [
+        "politics"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": true
+}

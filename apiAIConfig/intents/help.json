@@ -1,0 +1,57 @@
+{
+  "userSays": [
+    {
+      "id": "111982d8-5a8a-49cb-be4b-b4099d7fe071",
+      "data": [
+        {
+          "text": "What can you do?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b0e2eb3b-5806-4d5d-b1a4-6296de862e03",
+      "data": [
+        {
+          "text": "What all you can do?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "79320b63-84db-4e72-a600-840d3a4a6c4f",
+      "data": [
+        {
+          "text": "help"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "40357fc4-32ee-459c-8895-22141ade3e13",
+  "name": "help",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "help",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}
