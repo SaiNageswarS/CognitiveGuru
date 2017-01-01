@@ -12,7 +12,7 @@ class ApiAIResult (
     var source: String? = null,
     var resolvedQuery: String? = null,
     var speech: String? = null,
-    var action: String? = null,
+    var action: String = "",
     var actionIncomplete: Boolean? = null,
     var parameters: Map<String, Any> = mapOf(),
     var contexts: List<Context> = listOf(),

@@ -14,12 +14,6 @@ import javax.persistence.*
  * Created by sainageswar on 14/10/16.
  */
 
-enum class UserContext {
-    ENTER_EMAIL,
-    ADD_TASK,
-    NO_CONTEXT
-}
-
 @Entity
 class CgUser(
         @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) var id: Long = 0,
@@ -28,8 +22,7 @@ class CgUser(
         @Column(unique = true) var telegramUserId: Int? = null,
         @Column(unique = true) var userUUID: String = UUID.randomUUID().toString(),
         @CreationTimestamp val created_at: Timestamp = Timestamp(System.currentTimeMillis()),
-        @UpdateTimestamp var updated_at: Timestamp? = null,
-        @Enumerated(EnumType.STRING) var userContext: UserContext = UserContext.NO_CONTEXT
+        @UpdateTimestamp var updated_at: Timestamp? = null
 )
 
 @Entity

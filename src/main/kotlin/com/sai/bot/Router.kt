@@ -4,17 +4,32 @@ import com.sai.beans.ApiAIRequest
 import com.sai.beans.ApiAIResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.security.SecureRandom
 
 /**
  * Created by sainageswar on 01/01/17.
  */
 @Component
 class Router @Autowired constructor(val botController: BotController) {
-    fun getResponse(request: ApiAIRequest): ApiAIResponse {
-        return when {
-            request.user == null ->  botController.handleNoUser(request)
+    private val random = SecureRandom()
 
-            else -> ApiAIResponse(speech = "Couldn't get you.")
+    fun getResponse(request: ApiAIRequest): ApiAIResponse {
+        if (request.user == null) {
+            return botController.handleNoUser(request)
         }
+
+        val action = Actions.valueOf(request.result.action.toUpperCase())
+        if (action.getStaticResponses().isNotEmpty()) {
+            // if static messages are configured, return a standard static message
+            val randomIndex = random.nextInt(action.getStaticResponses().size)
+            return ApiAIResponse(speech = action.getStaticResponses()[randomIndex])
+        }
+
+        //for non-static responses
+//        when(action) {
+//            Actions.USER_ONBOARDING ->
+//        }
+
+        return ApiAIResponse(speech = "Could you please repeat")
     }
 }
