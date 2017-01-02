@@ -13,3 +13,4 @@ telegram.upscBotUsername = bot_name
 telegram.upscBotToken = bot_token
 
 server.webUrl = http://localhost:8080
+news.apiKey = ertsdfsdfokporew
