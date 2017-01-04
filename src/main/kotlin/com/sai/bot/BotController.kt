@@ -49,7 +49,7 @@ class BotController (@Autowired val dataRepo: DataRepository,
         val task = request.result.parameters["task"] as? String
 
         if (task == null || task.trim().isNullOrEmpty()) {
-            return ApiAIResponse(speech = "Usage: add task <your task>")
+            return ApiAIResponse(speech = "Please enter task.")
         }
         dataRepo.taskRepo.save(Task(jobString = task, cgUser = request.user))
         return ApiAIResponse(speech = "Task added.")
