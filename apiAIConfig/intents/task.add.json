@@ -60,9 +60,14 @@
       "affectedContexts": [],
       "parameters": [
         {
+          "required": true,
           "dataType": "@sys.any",
           "name": "task",
           "value": "$task",
+          "prompts": [
+            "What is the task?",
+            "What would you like to do?"
+          ],
           "isList": false
         }
       ],
@@ -76,7 +81,7 @@
   ],
   "priority": 500000,
   "webhookUsed": true,
-  "webhookForSlotFilling": true,
+  "webhookForSlotFilling": false,
   "fallbackIntent": false,
   "events": []
 }
